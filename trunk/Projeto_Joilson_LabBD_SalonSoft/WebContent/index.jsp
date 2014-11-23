@@ -11,12 +11,18 @@
 	<h3>Selecione uma das opções:</h3>
 	
 	<form action="./ControllerCliente" method="post">
-		<table>
+		<table border="1">
 			<tr>
 				<td><a href="./novo_cliente.jsp">Novo Cliente</a></td>
+				<td><a href="./novo_funcionario.jsp">Novo Funcionario</a></td>
+				<td><a href="./novo_servico.jsp">Novo Servico</a></td>
+				<td><a href="./novo_agendamento.jsp">Novo Agendamento</a></td>
 			</tr>
 			<tr>
 				<td><a href="./alterar_excluir_cliente.jsp">Alterar/Excluir Cliente</a></td>
+				<td><a href="./alterar_excluir_funcionario.jsp">Alterar/Excluir Funcinoario</a></td>
+				<td><a href="./alterar_excluir_servico.jsp">Alterar/Excluir Servico</a></td>
+				<td><a href="./alterar_excluir_agendamento.jsp">Alterar/Excluir Agendamento</a></td>
 			</tr>
 		</table>
 	</form>
