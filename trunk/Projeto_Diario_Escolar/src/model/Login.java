@@ -18,23 +18,39 @@ public class Login {
 	@Column(name = "SENHA", nullable = false, unique = false)
 	private String senha;
 	
+	@Column(name = "TIPO_ACESSO", nullable = false, unique = false)
+	private String tipoAcesso;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getTipoAcesso() {
+		return tipoAcesso;
+	}
+
+	public void setTipoAcesso(String tipoAcesso) {
+		this.tipoAcesso = tipoAcesso;
 	}
 	
 	
