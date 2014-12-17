@@ -30,12 +30,13 @@
 			<td>Senha: </td>
 			<td><input type="text" name="txtSenha"></td>
 		</tr>
+		
 		<tr>
 			<td><input type="submit" name="cmd" value="Acessar"></td>
 			<td><input type="submit" name="cmd" value="Limpar"></td>
 		</tr>
 	</table>
-	
+	<br>
 	<table>
 		<tr>
 			<td><h3><%= msg %></h3></td>

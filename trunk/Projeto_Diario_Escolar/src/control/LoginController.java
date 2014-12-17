@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DAO;
+import dao.LoginDAOMySQL;
 import model.Login;
 
 @WebServlet("/LoginController")
@@ -19,6 +21,8 @@ public class LoginController extends HttpServlet{
 
 	private Login login;
 	private List<Login> lsLogin;
+
+	private DAO dao;
 	
 	private String cmd;
 	private String msg;
@@ -28,6 +32,8 @@ public class LoginController extends HttpServlet{
 	public LoginController() {
 		login = new Login();
 		lsLogin = new ArrayList<Login>();
+		
+		dao = new LoginDAOMySQL();
 	}
 	
 	@Override
@@ -37,8 +43,22 @@ public class LoginController extends HttpServlet{
 		
 		if("Limpar".equals(cmd)){
 			msg = "Dados dos campos apagados.";
+			System.out.println("FROM " + Login.class.getName());
 		} else if ("Acessar".equals(cmd)){
-			verificarAcesso(req);
+			try {
+				boolean validaLogin = verificarAcesso(req);
+				if( validaLogin ){
+					msg = "Não encontramos seu login de acesso!";
+					req.setAttribute("MSG", msg);
+					rd = req.getRequestDispatcher("./index.jsp");
+					rd.include(req, resp);
+				} else 
+					msg = "Sucesso! Seu login existe.";
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg = e.getMessage();
+			}
 		}
 		
 		req.setAttribute("MSG", msg);
@@ -46,11 +66,12 @@ public class LoginController extends HttpServlet{
 		rd.include(req, resp);
 	}
 
-	private void verificarAcesso(HttpServletRequest req) {
+	private boolean verificarAcesso(HttpServletRequest req) throws Exception {
 		login.setLogin(req.getParameter("txtLogin"));
 		login.setSenha(req.getParameter("txtSenha"));
 		
+		lsLogin = dao.buscarTodos(login);
 		
+		return lsLogin.size() != 1;
 	}
-
 }
