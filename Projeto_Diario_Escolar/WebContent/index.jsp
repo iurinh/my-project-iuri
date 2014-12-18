@@ -7,6 +7,19 @@
 <title>Pagina Principal</title>
 </head>
 <body>
+
+<%
+	String msg = (String) request.getAttribute("MSG");
+	if ("".equals(msg) || msg == null) 
+		msg = "";
+%>
+
 <h1>Pagina Principal - INDEX</h1>
+
+	<table>
+		<tr>
+			<td><h3><%= msg %></h3></td>
+		</tr>
+	</table>
 </body>
 </html>
