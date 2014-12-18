@@ -22,10 +22,11 @@ public class LoginController extends HttpServlet{
 	private Login login;
 	private List<Login> lsLogin;
 
-	private DAO dao;
+	private DAO<Login> dao;
 	
 	private String cmd;
 	private String msg;
+	private String pagina;
 	
 	private RequestDispatcher rd;
 	
@@ -40,18 +41,16 @@ public class LoginController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		msg = "";
 		cmd = req.getParameter("cmd");
-		
+		pagina = "./login.jsp";
 		if("Limpar".equals(cmd)){
 			msg = "Dados dos campos apagados.";
-			System.out.println("FROM " + Login.class.getName());
 		} else if ("Acessar".equals(cmd)){
 			try {
 				boolean validaLogin = verificarAcesso(req);
 				if( validaLogin ){
 					msg = "Não encontramos seu login de acesso!";
 					req.setAttribute("MSG", msg);
-					rd = req.getRequestDispatcher("./index.jsp");
-					rd.include(req, resp);
+					pagina = "./index.jsp";
 				} else 
 					msg = "Sucesso! Seu login existe.";
 					
@@ -59,10 +58,20 @@ public class LoginController extends HttpServlet{
 				e.printStackTrace();
 				msg = e.getMessage();
 			}
+		} else if ("Adicionar".equals(cmd)){
+			login.setLogin(req.getParameter("txtLogin"));
+			login.setSenha(req.getParameter("txtSenha"));
+			login.setTipoAcesso(req.getParameter("cbAcesso"));
+			try {
+				dao.adicionar(login);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
 		}
 		
 		req.setAttribute("MSG", msg);
-		rd = req.getRequestDispatcher("./login.jsp");
+		rd = req.getRequestDispatcher(pagina);
 		rd.include(req, resp);
 	}
 

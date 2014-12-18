@@ -3,32 +3,35 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Login;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-import org.hibernate.Session;
+import model.Login;
 
 public class LoginDAOMySQL implements DAO<Login>{
 
-	private Session session;
+	private EntityManager e;
+	private EntityManagerFactory emf;
 	
 	@Override
 	public void adicionar(Login login) throws Exception {
 		abrirTransacao();
-		session.save(login);
+		e.persist(login);
 		fecharTransacao();
 	}
 
 	@Override
 	public void remover(Login login) throws Exception {
 		abrirTransacao();
-		session.delete(login);
+		e.remove(login);
 		fecharTransacao();
 	}
 
 	@Override
 	public void alterar(Login login) throws Exception {
 		abrirTransacao();
-		session.merge(login);
+		e.merge(login);
 		fecharTransacao();
 	}
 
@@ -37,19 +40,22 @@ public class LoginDAOMySQL implements DAO<Login>{
 		List<Login> lsLogin = new ArrayList<>();
 		
 		abrirTransacao();
-		lsLogin = session.createSQLQuery("FROM " + Login.class.getName()).list();
+		lsLogin = e.createQuery("FROM " + Login.class.getName()).getResultList();
 		fecharTransacao();
 		
 		return lsLogin;
 	}
 
 	private void abrirTransacao() {
-		session.beginTransaction();
+		emf = Persistence.createEntityManagerFactory("Diario_Escolar_MySQL");
+		e = emf.createEntityManager();
+		e.getTransaction().begin();
 	}
 	
 	private void fecharTransacao() {
-		session.getTransaction().commit();
-		session.close();
+		e.getTransaction().commit();
+		e.close();
+		emf.close();
 	}
 
 }

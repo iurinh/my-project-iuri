@@ -30,10 +30,20 @@
 			<td>Senha: </td>
 			<td><input type="text" name="txtSenha"></td>
 		</tr>
+		<tr>
+			<td>Tipo de Acesso: </td>
+			<td><select name="cbAcesso">
+				<option value="0">Selecione um tipo de acesso</option>
+				<option value="1">1 - Administrador"</option>
+				<option value="2">2 - Gerente"</option>
+				<option value="3">3 - Professor"</option>
+			</td>
+		</tr>
 		
 		<tr>
 			<td><input type="submit" name="cmd" value="Acessar"></td>
 			<td><input type="submit" name="cmd" value="Limpar"></td>
+			<td><input type="submit" name="cmd" value="Adicionar"></td>
 		</tr>
 	</table>
 	<br>

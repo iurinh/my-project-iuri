@@ -12,13 +12,13 @@ public class Login {
 	@GeneratedValue
 	private long id;
 	
-	@Column(name = "LOGIN", nullable = false, unique = true)
+	@Column(name = "LOGIN")
 	private String login;
 	
-	@Column(name = "SENHA", nullable = false, unique = false)
+	@Column(name = "SENHA")
 	private String senha;
 	
-	@Column(name = "TIPO_ACESSO", nullable = false, unique = false)
+	@Column(name = "TIPO_ACESSO")
 	private String tipoAcesso;
 
 	public long getId() {
