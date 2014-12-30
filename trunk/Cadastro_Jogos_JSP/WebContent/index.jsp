@@ -10,14 +10,17 @@
 <h1>Verifique o banco antes de rodar a nossa aplicaçao</h1>
 
 <br>
-CREATE DATABASE `dbjogo` /*!40100 DEFAULT CHARACTER SET utf8 */; <br>
-<br>
-CREATE TABLE `jogo` (<br>
-  `id` int(11) NOT NULL AUTO_INCREMENT,<br>
-  `nome` varchar(45) NOT NULL DEFAULT 'Nao Nomeado',<br>
-  `nivel` int(11) NOT NULL DEFAULT '0',<br>
-  PRIMARY KEY (`id`)<br>
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;<br>
+CREATE DATABASE dbjogo; 
+<br><br>
+USE dbjogo;
+<br><br>
+CREATE TABLE jogo<br> 
+(<br>
+id int(11) NOT NULL AUTO_INCREMENT,<br>
+nome varchar(45) NOT NULL DEFAULT 'Nao Nomeado',<br>
+nivel int(11) NOT NULL DEFAULT '0',<br>
+PRIMARY KEY (`id`)<br>
+);
 <br>
 <br>
 <br>
