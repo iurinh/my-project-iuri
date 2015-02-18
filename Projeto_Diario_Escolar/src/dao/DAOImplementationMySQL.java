@@ -7,47 +7,46 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import model.Login;
-
-public class LoginDAOMySQL implements DAO<Login>{
+public class DAOImplementationMySQL implements DAO<Object>{
 
 	private EntityManager e;
 	private EntityManagerFactory emf;
+	private DAOFactoryTableMySQL factoryconnection;
 	
 	@Override
-	public void adicionar(Login login) throws Exception {
+	public void adicionar(Object Object) throws Exception {
 		abrirTransacao();
-		e.persist(login);
+		e.persist(Object);
 		fecharTransacao();
 	}
 
 	@Override
-	public void remover(Login login) throws Exception {
+	public void remover(Object Object) throws Exception {
 		abrirTransacao();
-		e.remove(login);
+		e.remove(Object);
 		fecharTransacao();
 	}
 
 	@Override
-	public void alterar(Login login) throws Exception {
+	public void alterar(Object Object) throws Exception {
 		abrirTransacao();
-		e.merge(login);
+		e.merge(Object);
 		fecharTransacao();
 	}
 
 	@Override
-	public List<Login> buscarTodos(Login login) throws Exception {
-		List<Login> lsLogin = new ArrayList<>();
+	public List<Object> buscarTodos() throws Exception {
+		List<Object> lsObject = new ArrayList<>();
 		
 		abrirTransacao();
-		lsLogin = e.createQuery("FROM " + Login.class.getName()).getResultList();
+		lsObject = e.createQuery("FROM " + Object.class.getName()).getResultList();
 		fecharTransacao();
 		
-		return lsLogin;
+		return lsObject;
 	}
 
 	private void abrirTransacao() {
-		emf = Persistence.createEntityManagerFactory("Diario_Escolar_MySQL");
+		emf = factoryconnection.createConnection();
 		e = emf.createEntityManager();
 		e.getTransaction().begin();
 	}
@@ -56,6 +55,7 @@ public class LoginDAOMySQL implements DAO<Login>{
 		e.getTransaction().commit();
 		e.close();
 		emf.close();
+		factoryconnection.closeConnection(emf);
 	}
 
 }
