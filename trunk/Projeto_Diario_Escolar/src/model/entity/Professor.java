@@ -14,10 +14,10 @@ public class Professor {
 	@Id
 	@GeneratedValue
 	@Column(name="ID_PROFESSOR")
-	private long id;
+	private Long id;
 
 	@Column(nullable=false, name="REGISTRO_PROFESSOR")
-	private long registro;
+	private Long registro;
 	
 	@Column(nullable=false, name="NOME_PROFESSOR")
 	private String nome;
@@ -28,19 +28,19 @@ public class Professor {
 	@OneToMany
 	private List<Turma> lsTurma;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getRegistro() {
+	public Long getRegistro() {
 		return registro;
 	}
 
-	public void setRegistro(long registro) {
+	public void setRegistro(Long registro) {
 		this.registro = registro;
 	}
 

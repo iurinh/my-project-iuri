@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,57 +10,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.entity.Relatorio;
+import model.entity.Professor;
 import dao.DAO;
-import dao.DAOFactoryTableMySQL;
-import dao.DAOImplementationRelatorio;
+import dao.DAOImplementationProfessor;
 
 /**
- * Servlet implementation class ControllerRelatorio
+ * Servlet implementation class ControllerProfessor
  */
-@WebServlet("/ControllerRelatorio")
-public class ControllerRelatorio extends HttpServlet {
+@WebServlet("/ControllerProfessor")
+public class ControllerProfessor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private Relatorio relatorio;
 	private DAO dao;
 	private String msg;
+	private Professor professor;
 	
+    public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public ControllerRelatorio() {
-        super();
-        relatorio = new Relatorio();
-        dao = new DAOImplementationRelatorio();
+    public ControllerProfessor() {
+        dao = new DAOImplementationProfessor();
         msg = "";
+        professor = new Professor();
     }
-    
-    public Relatorio getRelatorio() {
-		return relatorio;
-	}
-
-	public void setRelatorio(Relatorio relatorio) {
-		this.relatorio = relatorio;
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
 		try{
 			switch (request.getParameter("cmd")) {
 			case "Adicionar":
-				adicionar(request,response);
-				msg = "Relatorio Adicionado";
+				
 				break;
 			case "Alterar":
 
@@ -76,20 +71,12 @@ public class ControllerRelatorio extends HttpServlet {
 			msg = e.getMessage();
 		}
 		
-		request.setAttribute("MSG", msg);
     	RequestDispatcher rd;
-    	rd = request.getRequestDispatcher("./viewRelatorio.jsp");
+    	rd = request.getRequestDispatcher("./viewProfessor.jsp");
 		rd.include(request, response);
 	}
 
-	private void adicionar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		relatorio = new Relatorio();
-		relatorio.setDescricao(request.getParameter("txtDescricao"));
-		relatorio.setDia(request.getParameter("txtData"));
-		dao.adicionar(relatorio);
-	}
-
-	public List<Relatorio> obterRelatorios() throws Exception{
+	public List<Professor> obterProfessores() throws Exception{
 		return dao.buscarTodos();
 	}
 }

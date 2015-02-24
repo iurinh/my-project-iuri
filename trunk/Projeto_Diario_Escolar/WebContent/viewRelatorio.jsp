@@ -12,14 +12,15 @@
 <body>
 	
 	<form action="./ControllerRelatorio" method="post">
+		
 		<table>
 			<tr>
 				<td>Data do Relatório: </td>
-				<td><input type="text" name="txtData" value=""></td>
+				<td><input type="text" name="txtData" value="${relatorio.dia}"></td>
 			</tr>
 			<tr>
 				<td>Descrição: </td>
-				<td><input type="text" name="txtDescricao" value=""></td>
+				<td><input type="text" name="txtDescricao" value="${relatorio.descricao}"></td>
 			</tr>
 		</table>
 		<table>
@@ -38,21 +39,23 @@
 				<%
 				ControllerRelatorio ctrl = new ControllerRelatorio(); 
 				try{
-					for (Relatorio relatorio : ctrl.obterRelatorios()) {
+					for (Relatorio dadosRelatorio : ctrl.obterRelatorios()) {
 						%>
 						<tr>
-							<td><%=relatorio.getId() %> </td>
-							<td><%=relatorio.getDia() %> </td>
-							<td><%=relatorio.getDescricao() %> </td>
+							<td><%=dadosRelatorio.getId() %> </td>
+							<td><%=dadosRelatorio.getDia() %> </td>
+							<td><%=dadosRelatorio.getDescricao() %> </td>
 						</tr>
 						<%
 					}
 				}catch(Exception e){
 					%>ERRO AO CARREGAR TABELA DE RELATORIOS<br><%
-					e.getMessage();
+					System.out.println(e.getMessage());
 				}
 				%>
 			</tr>
 		</table>
+		<%= request.getAttribute("MSG") %>
+		</form>
 </body>
 </html>

@@ -5,52 +5,51 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-import model.entity.Relatorio;
+import model.entity.Professor;
 
-public class DAOImplementationRelatorio implements DAO<Relatorio>{
+public class DAOImplementationProfessor implements DAO<Professor> {
 
 	private EntityManager e;
 	private EntityManagerFactory emf;
 	private DAOFactoryTableMySQL factoryconnection;
 	
-	public DAOImplementationRelatorio() {
+	public DAOImplementationProfessor() {
 		factoryconnection = new DAOFactoryTableMySQL();
 	}
 	
 	@Override
-	public void adicionar(Relatorio relatorio) throws Exception {
+	public void adicionar(Professor professor) throws Exception {
 		abrirTransacao();
-		e.persist(relatorio);
+		e.persist(professor);
 		fecharTransacao();
 	}
 
 	@Override
-	public void remover(Relatorio relatorio) throws Exception {
+	public void remover(Professor professor) throws Exception {
 		abrirTransacao();
-		e.remove(relatorio);
+		e.remove(professor);
 		fecharTransacao();
 	}
 
 	@Override
-	public void alterar(Relatorio relatorio) throws Exception {
+	public void alterar(Professor professor) throws Exception {
 		abrirTransacao();
-		e.merge(relatorio);
+		e.merge(professor);
 		fecharTransacao();
 	}
 
 	@Override
-	public List<Relatorio> buscarTodos() throws Exception {
-		List<Relatorio> lsRelatorio = new ArrayList<>();
+	public List<Professor> buscarTodos() throws Exception {
+		List<Professor> lsProfessor = new ArrayList<>();
 		
 		abrirTransacao();
-		lsRelatorio = e.createQuery("FROM " + Relatorio.class.getName()).getResultList();
+		lsProfessor = e.createQuery("FROM " + Professor.class.getName()).getResultList();
 		fecharTransacao();
 		
-		return lsRelatorio;
+		return lsProfessor;
 	}
-
+	
 	private void abrirTransacao() {
 		emf = factoryconnection.createConnection();
 		e = emf.createEntityManager();
@@ -59,7 +58,6 @@ public class DAOImplementationRelatorio implements DAO<Relatorio>{
 	
 	private void fecharTransacao() {
 		e.getTransaction().commit();
-		e.close();
 		factoryconnection.closeConnection(emf);
 	}
 
