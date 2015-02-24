@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,57 +10,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.entity.Relatorio;
+import model.entity.Turma;
 import dao.DAO;
-import dao.DAOFactoryTableMySQL;
-import dao.DAOImplementationRelatorio;
+import dao.DAOImplementationTurma;
 
 /**
- * Servlet implementation class ControllerRelatorio
+ * Servlet implementation class ControllerTurma
  */
-@WebServlet("/ControllerRelatorio")
-public class ControllerRelatorio extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	private Relatorio relatorio;
+@WebServlet("/ControllerTurma")
+public class ControllerTurma extends HttpServlet {
 	private DAO dao;
 	private String msg;
+	private Turma turma;
 	
+    public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public ControllerRelatorio() {
-        super();
-        relatorio = new Relatorio();
-        dao = new DAOImplementationRelatorio();
+    public ControllerTurma() {
+        dao = new DAOImplementationTurma();
         msg = "";
+        turma = new Turma();
     }
-    
-    public Relatorio getRelatorio() {
-		return relatorio;
-	}
-
-	public void setRelatorio(Relatorio relatorio) {
-		this.relatorio = relatorio;
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
 		try{
 			switch (request.getParameter("cmd")) {
 			case "Adicionar":
-				adicionar(request,response);
-				msg = "Relatorio Adicionado";
+				
 				break;
 			case "Alterar":
 
@@ -76,20 +69,13 @@ public class ControllerRelatorio extends HttpServlet {
 			msg = e.getMessage();
 		}
 		
-		request.setAttribute("MSG", msg);
     	RequestDispatcher rd;
-    	rd = request.getRequestDispatcher("./viewRelatorio.jsp");
+    	rd = request.getRequestDispatcher("./viewTurma.jsp");
 		rd.include(request, response);
 	}
 
-	private void adicionar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		relatorio = new Relatorio();
-		relatorio.setDescricao(request.getParameter("txtDescricao"));
-		relatorio.setDia(request.getParameter("txtData"));
-		dao.adicionar(relatorio);
-	}
-
-	public List<Relatorio> obterRelatorios() throws Exception{
+	public List<Turma> obterTurmaes() throws Exception{
 		return dao.buscarTodos();
 	}
+
 }
