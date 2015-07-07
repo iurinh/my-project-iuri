@@ -1,0 +1,7 @@
+127.0.0.1 - - [06/Jul/2015:21:56:07 -0300] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:21:56:08 -0300] "GET /Projeto_Diario_Escolar/ HTTP/1.1" 404 997
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:21:56:20 -0300] "GET /Projeto_VAMPETA_JSP/ HTTP/1.1" 200 1083
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:21:56:28 -0300] "GET /Projeto_VAMPETA_JSP/alterar_excluir_cliente.jsp HTTP/1.1" 200 1631
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:21:56:36 -0300] "GET /Projeto_VAMPETA_JSP/index.jsp HTTP/1.1" 200 1083
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:21:56:55 -0300] "GET /Projeto_Diario_Escolar/viewRelatorio.jsp HTTP/1.1" 500 5109
+0:0:0:0:0:0:0:1 - - [06/Jul/2015:22:00:07 -0300] "GET /Projeto_Diario_Escolar/viewRelatorio.jsp HTTP/1.1" 500 3969
